@@ -12,9 +12,31 @@ def part1(groups, ingredients):
                 
     return fresh_ingredients
 
+def get_lower(number):
+    return number[0]
 
-def part2(groups):
-    pass
+def part2(group):
+    intervals = list()
+    for number in groups:
+        first = int(number.split("-")[0])
+        second = int(number.split("-")[1])
+        list_group = [first, second]
+        intervals.append(list_group)
+    intervals.sort(key=get_lower)
+    fresh_ingredients_intervals = list()
+    for interval in intervals:
+        if len(fresh_ingredients_intervals) == 0:
+            fresh_ingredients_intervals.append(interval)
+        else:
+            last_known_range = fresh_ingredients_intervals[-1]
+            if interval[0] <= last_known_range[1]:
+                last_known_range[1] = max(last_known_range[1], interval[1])
+            else:
+                fresh_ingredients_intervals.append(interval)
+    number_of_fresh_ingredients_id = 0
+    for interval in fresh_ingredients_intervals:
+        number_of_fresh_ingredients_id += (interval[1]- interval[0]+1)
+    return number_of_fresh_ingredients_id
 
 input = list()
 with open("day5.txt", "r") as f:
