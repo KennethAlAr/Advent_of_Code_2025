@@ -15,7 +15,7 @@ def part1(groups, ingredients):
 def get_lower(number):
     return number[0]
 
-def part2(group):
+def part2(groups):
     intervals = list()
     for number in groups:
         first = int(number.split("-")[0])
